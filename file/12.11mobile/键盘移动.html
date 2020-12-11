@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        div {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            top: 8px;
+            left: 8px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+
+    </div>
+</body>
+<script type="text/javascript">
+    window.onload = function () {
+        var oDiv = document.getElementsByTagName('div')[0];
+        var json = { 'left': 'false', 'top': 'false', 'right': 'false', 'bottom': 'false' };
+        document.onkeydown = function (ev) {
+            var ev = ev || event;
+            if (ev.keyCode == 37) {
+                json['left'] = true;
+            }
+            if (ev.keyCode == 38) {
+                json['top'] = true;
+            }
+            if (ev.keyCode == 39) {
+                json['right'] = true;
+            }
+            if (ev.keyCode == 40) {
+                json['bottom'] = true;
+            }
+        }
+        document.onkeyup = function (ev) {
+            var ev = ev || event;
+            if (ev.keyCode == 37) {
+                json['left'] = false;
+            }
+            if (ev.keyCode == 38) {
+                json['top'] = false;
+            }
+            if (ev.keyCode == 39) {
+                json['right'] = false;
+            }
+            if (ev.keyCode == 40) {
+                json['bottom'] = false;
+            }
+        }
+        setInterval(function () {
+            if (json['left'] == true) {
+                oDiv.style.left = oDiv.offsetLeft - 10 + 'px';
+            }
+            if (json['top'] == true) {
+                oDiv.style.top = oDiv.offsetTop - 10 + 'px';
+            }
+            if (json['right'] == true) {
+                oDiv.style.left = oDiv.offsetLeft + 10 + 'px';
+            }
+            if (json['bottom'] == true) {
+                oDiv.style.top = oDiv.offsetTop + 10 + 'px';
+            }
+        }, 30);
+    }
+</script>
+
+</html>

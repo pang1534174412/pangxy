@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .yi {
+            position: absolute;
+            top: 50px;
+            left: 20px;
+            width: 100px;
+            height: 100px;
+            background-color: chartreuse;
+        }
+
+        .er {
+            position: absolute;
+            top: 200px;
+            left: 300px;
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            transition: all .6s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="yi"></div>
+    <div class="er"></div>
+</body>
+<script>
+    var yi = document.querySelector(".yi")
+    var er = document.querySelector(".er")
+
+    yi.onmousedown = function (e) {
+        this.style.cursor = "move";
+        var x = e.pageX - this.offsetLeft;
+        var y = e.pageY - this.offsetTop;
+        document.onmousemove = function (e) {
+            yi.style.left = e.pageX - x + "px";
+            yi.style.top = e.pageY - y + "px";
+            fu()
+        }
+    }
+    yi.onmouseup = function () {
+        this.style.cursor = "default";
+        document.onmousemove = null;
+    }
+
+    function fu() {
+        var yi_left = yi.offsetLeft + yi.offsetWidth;
+        var yi_top = yi.offsetTop + yi.offsetHeight;
+        var er_left = er.offsetLeft + er.offsetWidth;
+        var er_top = er.offsetTop + er.offsetHeight;
+        //左边撞击
+        if ((yi_left > er.offsetLeft && yi_left < er.offsetLeft + 10) && (yi.offsetTop > er.offsetTop - yi
+                .offsetHeight && yi.offsetTop < er_top)) {
+            return er.style.left = yi_left + 100 + "px";
+            //上边撞击
+        } else if ((yi_top > er.offsetTop && yi_top < er.offsetTop + 10) && (yi.offsetLeft > er.offsetLeft - yi
+                .offsetWidth && yi.offsetLeft < er.offsetLeft + yi.offsetWidth)) {
+            return er.style.top = yi_top + 100 + "px"
+            //右边撞击
+        } else if ((yi.offsetLeft > er_left - 10 && yi.offsetLeft < er_left) && (yi.offsetTop > er.offsetTop - yi
+                .offsetHeight && yi.offsetTop < er.offsetTop + yi
+                .offsetHeight)) {
+            return er.style.left = yi.offsetLeft - 200 + "px";
+            //下边撞击
+        } else if ((yi.offsetTop > er_top - 10 && yi.offsetTop < er_top) && ((yi.offsetLeft > er.offsetLeft - yi
+                .offsetWidth && yi.offsetLeft < er.offsetLeft + yi.offsetWidth))) {
+            return er.style.top = yi.offsetTop - 300 + "px"
+        }
+    }
+</script>
+<!-- /* &&(er.offsetTop > yi.offsetTop + 10 && er.offsetTop < yi.offsetTop + 70) */ -->
+
+</html>
